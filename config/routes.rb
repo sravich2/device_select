@@ -18,6 +18,9 @@ end
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
   resources :products
+  put 'products/:id/scrape_amazon', to: 'products#scrape_amazon', as: 'product_scrape_amazon'
+
+
   # Example resource route with options:
   #   resources :products do
   #     member do

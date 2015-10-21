@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :set_product, only: [:show, :edit, :update, :destroy, :scrape_amazon]
 
   # GET /products
   # GET /products.json
@@ -65,15 +65,9 @@ class ProductsController < ApplicationController
     end
   end
 
-  def get_details_from_amazon
-    product_page_url = fetch_amazon_page_url(self.name)
-    product_page_html = open(product_page_url).read
-    @html_doc = Nokogiri::HTML(product_page_html)
-    screen_size = @html_doc.xpath("//div[@class='pdTab']/table/tbody/tr/td[text() = 'Screen Size']/following-sibling::td/text()").to_s
-
-    img_url = @html_doc.xpath("//li[contains(@class, 'itemNo0')]//img[contains(@id, 'landingImage')]/@src").to_s
-
-
+  def scrape_amazon
+    @product.get_details_from_amazon
+    render json: nil, status: :ok
   end
 
   private
@@ -84,7 +78,7 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:name, :screen_size, :memory, :processor, :battery, :camera, :img_url)
+      params.require(:product).permit(:company, :name, :screen_size, :memory, :processor, :battery, :camera, :img_url)
     end
 
 
