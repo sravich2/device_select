@@ -67,7 +67,7 @@ class ProductsController < ApplicationController
 
   def scrape_amazon
     @product.get_details_from_amazon
-    render json: nil, status: :ok
+    redirect_to :action => 'index'
   end
 
   private
@@ -80,6 +80,5 @@ class ProductsController < ApplicationController
     def product_params
       params.require(:product).permit(:company, :name, :screen_size, :memory, :processor, :battery, :camera, :img_url)
     end
-
 
 end
