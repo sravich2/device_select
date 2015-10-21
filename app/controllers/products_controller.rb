@@ -61,6 +61,13 @@ class ProductsController < ApplicationController
     end
   end
 
+  def get_details_from_amazon
+    product_page_url = fetch_amazon_page_url(self.name)
+    product_page_html = open(product_page_url).read
+    @html_doc = Nokogiri::HTML(product_page_html)
+    @html_doc.xpath("//div[@class='pdTab']/table/tbody/tr/td[text() = 'Screen Size']/following-sibling::td/text()").to_s
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
@@ -71,4 +78,6 @@ class ProductsController < ApplicationController
     def product_params
       params[:product]
     end
+
+
 end
