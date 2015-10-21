@@ -15,7 +15,7 @@ class Product < ActiveRecord::Base
 
   def get_details_from_amazon
     product_page_url = fetch_amazon_page_url(self.name)
-    product_page_html = open(product_page_url).read
+    product_page_html = open(product_page_url, "User-Agent" => "Device Select").read
     @html_doc = Nokogiri::HTML(product_page_html)
 
     amazon_fields = {:camera => 'Webcam', :screen_size => 'Screen Size', :company => 'Brand Name', :memory => 'RAM', :processor => 'Processor', :battery => 'Average Battery Life (in hours)' }
@@ -36,7 +36,7 @@ class Product < ActiveRecord::Base
   private
   def fetch_amazon_page_url(product)
     product_param = product.downcase.split(' ').join('+')
-    page_html = open("http://www.amazon.com/s/field-keywords=#{product_param}").read
+    page_html = open("http://www.amazon.com/s/field-keywords=#{product_param}", "User-Agent" => "Device Select").read
     @html_doc = Nokogiri::HTML(page_html)
     product_page_url = @html_doc.xpath("//li[@id='result_0']//a[contains(@class, 's-access-detail-page')]/@href").to_s
     ## Only for testing
