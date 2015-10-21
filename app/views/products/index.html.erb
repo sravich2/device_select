@@ -12,8 +12,8 @@
       <th><%= model_class.human_attribute_name(:memory) %></th>
       <th><%= model_class.human_attribute_name(:camera) %></th>
       <th><%= model_class.human_attribute_name(:battery) %></th>
-      <th><%= model_class.human_attribute_name(:img_url) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%# model_class.human_attribute_name(:img_url) %></th>
+      <th><%# model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -27,8 +27,8 @@
         <td><%= product.memory %></td>
         <td><%= product.camera %></td>
         <td><%= product.battery %></td>
-        <td><%= product.img_url %></td>
-        <td><%=l product.created_at %></td>
+        <td><%# product.img_url %></td>
+        <td><%#l product.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_product_path(product), :class => 'btn btn-default btn-xs' %>
