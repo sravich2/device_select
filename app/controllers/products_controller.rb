@@ -65,7 +65,11 @@ class ProductsController < ApplicationController
     product_page_url = fetch_amazon_page_url(self.name)
     product_page_html = open(product_page_url).read
     @html_doc = Nokogiri::HTML(product_page_html)
-    @html_doc.xpath("//div[@class='pdTab']/table/tbody/tr/td[text() = 'Screen Size']/following-sibling::td/text()").to_s
+    screen_size = @html_doc.xpath("//div[@class='pdTab']/table/tbody/tr/td[text() = 'Screen Size']/following-sibling::td/text()").to_s
+
+    img_url = @html_doc.xpath("//li[contains(@class, 'itemNo0')]//img[contains(@id, 'landingImage')]/@src").to_s
+
+
   end
 
   private
@@ -76,7 +80,7 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params[:product]
+      params.require(:product).permit(:name, :screen_size, :memory, :processor, :battery, :camera, :img_url)
     end
 
 

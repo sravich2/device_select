@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151019234641) do
+ActiveRecord::Schema.define(version: 20151021010943) do
 
   create_table "companies", force: :cascade do |t|
     t.string   "name"
@@ -21,12 +21,15 @@ ActiveRecord::Schema.define(version: 20151019234641) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.string "processor"
-    t.string "screen_size"
-    t.string "name"
-    t.string "memory"
-    t.string "camera"
-    t.string "battery"
+    t.string   "processor"
+    t.string   "screen_size"
+    t.string   "name"
+    t.string   "memory"
+    t.string   "camera"
+    t.string   "battery"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "img_url"
   end
 
   create_table "users", force: :cascade do |t|

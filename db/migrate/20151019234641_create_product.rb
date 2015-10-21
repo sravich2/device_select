@@ -7,6 +7,8 @@ class CreateProduct < ActiveRecord::Migration
       t.string :memory
       t.string :camera
       t.string :battery
+
+      t.timestamps
     end
   end
 end

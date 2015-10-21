@@ -46,3 +46,4 @@ group :development, :test do
 end
 
 gem 'nokogiri'
+gem "twitter-bootstrap-rails"

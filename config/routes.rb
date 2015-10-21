@@ -6,8 +6,9 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 devise_scope :user do
-  root to: "devise/sessions#new"
+  root to: "products#index"
 end
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
@@ -16,7 +17,7 @@ end
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-
+  resources :products
   # Example resource route with options:
   #   resources :products do
   #     member do
