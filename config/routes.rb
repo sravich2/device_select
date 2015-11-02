@@ -21,6 +21,7 @@ end
     #put 'scrape_amazon', to: 'products#'
   end
   put 'products/:id/scrape_amazon', to: 'products#scrape_amazon', as: 'product_scrape_amazon'
+  put 'products/:id/scrape_wikipedia', to: 'products#scrape_wikipedia', as: 'product_scrape_wikipedia'
 
 
   # Example resource route with options:

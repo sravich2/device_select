@@ -70,6 +70,11 @@ class ProductsController < ApplicationController
     redirect_to :action => 'index'
   end
 
+  def scrape_wikipedia
+    @product.get_details_from_wikipedia
+    redirect_to :action => 'index'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
