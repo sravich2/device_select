@@ -37,3 +37,10 @@
             :method => 'delete',
             :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
             :class => 'btn btn-danger' %>
+<%= link_to t('.Write a Review', :class => 'btn btn-default') %>
+
+<%= form_for @user_review, url: {action: "create"}, html: {class: "UserReview"} do |f| %>
+    <%= f.text_field :title %>
+    <%= f.text_area :body, size: "60x12" %>
+    <%= f.submit "Create" %>
+<% end %>
