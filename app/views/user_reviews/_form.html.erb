@@ -10,6 +10,7 @@
       </ul>
     </div>
   <% end %>
+    <%= f.hidden_field :product_id, :value => params[:product_id] %>
     <div class="control-group">
       <%= f.label :comment, :class => 'control-label' %>
       <div class="controls">
@@ -17,7 +18,13 @@
       </div>
       <%= error_span(@user_review[:comment]) %>
     </div>
-
+    <div class="control-group">
+      <%= f.label :rating, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.select :rating, 1..10 %>
+      </div>
+      <%= error_span(@user_review[:comment]) %>
+    </div>
   <div class="actions">
     <%= f.submit %>
   </div>
