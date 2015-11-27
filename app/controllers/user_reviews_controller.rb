@@ -24,7 +24,7 @@ class UserReviewsController < ApplicationController
   # POST /user_reviews
   # POST /user_reviews.json
   def create
-    @user_review = UserReview.new(params.slice(*user_review_params))
+    @user_review = UserReview.new(user_review_params)
 
     respond_to do |format|
       if @user_review.save
@@ -69,6 +69,6 @@ class UserReviewsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_review_params
-      [:comment, :rating]
+      params.require(:user_review).permit(:comment)
     end
 end
