@@ -39,8 +39,16 @@
             :class => 'btn btn-danger' %>
 <%= link_to t('.Write a Review', :class => 'btn btn-default'), new_user_review_path(:product_id => @product.id) %>
 
+<div class="reviews">
+  <% @product.user_reviews.each do |r| %>
+      <div class="review">
+        <b><%= r.rating %></b>: <%= r.comment %>. Posted by <%= User.find(r.user_id).email %>
+      </div>
+  <% end %>
+</div>
+
 <%# form_for @user_review, url: {action: "create"}, html: {class: "UserReview"} do |f| %>
-    <%# f.text_field :title %>
-    <%# f.text_area :body, size: "60x12" %>
-    <%# f.submit "Create" %>
+<%# f.text_field :title %>
+<%# f.text_area :body, size: "60x12" %>
+<%# f.submit "Create" %>
 <%# end %>
