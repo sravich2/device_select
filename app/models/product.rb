@@ -53,7 +53,7 @@ class Product < ActiveRecord::Base
     product_param = product.downcase.split(' ').join('+')
     agent = Mechanize.new
     results_page = agent.get("https://www.google.com/search?q=#{product_param}+site%3Aengadget.com%2Fproducts")
-    results_page.links[24].href
+    results_page.links[24].href.split('/url?q=')[1].split('&sa')[0]
   end
 
 end
