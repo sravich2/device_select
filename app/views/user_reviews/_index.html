@@ -1,0 +1,7 @@
+<div class="reviews">
+    <% reviews.each do |r| %>
+    <div class="review">
+        <b><%= r.rating %></b>: <%= r.comment %>. Posted by <%= User.find(r.user_id).email %> on <%= r.created_at.to_formatted_s(:long_ordinal) %>
+    </div>
+    <% end %>
+</div>

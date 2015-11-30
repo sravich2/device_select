@@ -20,6 +20,7 @@ end
   resources :products do
     #put 'scrape_amazon', to: 'products#'
   end
+  resources :user_reviews
   put 'products/:id/scrape_amazon', to: 'products#scrape_amazon', as: 'product_scrape_amazon'
   put 'products/:id/scrape_engadget', to: 'products#scrape_engadget', as: 'product_scrape_engadget'
 

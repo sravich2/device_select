@@ -1,0 +1,31 @@
+<%= form_for(@user_review) do |f| %>
+  <% if @user_review.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user_review.errors.count, "error") %> prohibited this user_review from being saved:</h2>
+
+      <ul>
+      <% @user_review.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <%= f.hidden_field :product_id, :value => params[:product_id] %>
+    <div class="control-group">
+      <%= f.label :comment, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_area :comment, :class => 'form-control', :cols => '10', :rows => '10' %>
+      </div>
+      <%= error_span(@user_review[:comment]) %>
+    </div>
+    <div class="control-group">
+      <%= f.label :rating, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.select :rating, 1..10 %>
+      </div>
+      <%= error_span(@user_review[:comment]) %>
+    </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

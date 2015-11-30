@@ -2,6 +2,8 @@ require 'open-uri'
 #require 'googleajax'
 
 class Product < ActiveRecord::Base
+  has_many :user_reviews
+
   def self.search(string)
     conditions = string.split(',').collect do |m|
       m.strip!
