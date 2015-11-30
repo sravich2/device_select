@@ -48,6 +48,13 @@ class Product < ActiveRecord::Base
 
   end
 
+  def fetch_engadget_page_url(product)
+    product_param = product.downcase.split(' ').join('+')
+    agent = Mechanize.new
+    results_page = agent.get("https://www.google.com/search?q=#{product_param}+site%3Aengadget.com%2Fproducts")
+    results_page.links[30].href.split('/url?q=')[1]
+  end
+
   def get_details_from_bestbuy
     product_page_url = fetch_bestbuy_page_url(self.name)
     product_page_html = open(product_page_url, "User-Agent" => "Device Select").read

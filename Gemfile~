@@ -47,4 +47,3 @@ end
 
 gem 'nokogiri'
 gem "twitter-bootstrap-rails"
-gem 'mechanize'
