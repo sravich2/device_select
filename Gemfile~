@@ -47,3 +47,8 @@ end
 
 gem 'nokogiri'
 gem "twitter-bootstrap-rails"
+<<<<<<< HEAD
+gem 'mechanize'
+=======
+gem 'google-api-client', '0.9.pre3'
+>>>>>>> 1f9eda0338de04cbea2fe7b9fcfc6e0d8f3af8d4

@@ -36,7 +36,6 @@ class Product < ActiveRecord::Base
     self.save!
   end
 
-<<<<<<< HEAD
   private
   def fetch_amazon_page_url(product)
     product_param = product.downcase.split(' ').join('+')
@@ -57,43 +56,5 @@ class Product < ActiveRecord::Base
     results_page.links[30].href.split('/url?q=')[1]
   end
 
-  def get_details_from_bestbuy
-    product_page_url = fetch_bestbuy_page_url(self.name)
-=======
-  def get_details_from_engadget
-    product_page_url = fetch_engadget_page_url(self.name)
->>>>>>> 1f9eda0338de04cbea2fe7b9fcfc6e0d8f3af8d4
-    product_page_html = open(product_page_url, "User-Agent" => "Device Select").read
-    @html_doc = Nokogiri::HTML(product_page_html)
-
-    engadget_fields = {:camera => 'Webcam', :screen_size => 'Screen Size', :company => 'Brand Name', :memory => 'RAM', :processor => 'Processor', :battery => 'Average Battery Life (in hours)' }
-    new_attrs = {}
-    engadget_fields.keys.each do |f|
-      attr = @html_doc.xpath("//div[@class='pdTab']/table/tbody/tr/td[contains(text(), '#{engadget_fields[f]}')]/following-sibling::td/text()").to_s
-      puts attr
-      unless attr.blank?
-        new_attrs[f] = attr
-      end
-    end
-
-    new_attrs[:img_url] = @html_doc.xpath("//*[@id='product-carousel']/li[1]/a/img").to_s
-    self.update(new_attrs)
-    self.save!
-  end
-
-  private
-  def fetch_amazon_page_url(product)
-    product_param = product.downcase.split(' ').join('+')
-    page_html = open("http://www.amazon.com/s/field-keywords=#{product_param}", "User-Agent" => "Device Select").read
-    @html_doc = Nokogiri::HTML(page_html)
-    product_page_url = @html_doc.xpath("//li[@id='result_0']//a[contains(@class, 's-access-detail-page')]/@href").to_s
-  end
-
-  def fetch_engadget_page_url(product)
-      product_param = product.downcase.split(' ').join('+')
-      page_html = open("https://www.google.com/?gws_rd=ssl#q=#{product_param}+site:engadget.com%2Fproducts", "User-Agent" => "Device Select").read
-      @html_doc = Nokogiri::HTML(page_html)
-      product_page_url = @html_doc.xpath("//*[@id='rso']/div/div/div[1]/div/h3/a/@href").to_s
-  end
 end
 

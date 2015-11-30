@@ -42,18 +42,18 @@ GEM
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
-    byebug (6.0.2)
+    byebug (8.2.1)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
     coffee-script (2.4.1)
       coffee-script-source
       execjs
-    coffee-script-source (1.9.1.1)
+    coffee-script-source (1.10.0)
     debug_inspector (0.0.2)
     declarative (0.0.5)
       uber (>= 0.0.15)
-    devise (3.5.1)
+    devise (3.5.2)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
@@ -69,10 +69,6 @@ GEM
       multipart-post (>= 1.2, < 3)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
-<<<<<<< HEAD
-    http-cookie (1.0.2)
-      domain_name (~> 0.5)
-=======
     google-api-client (0.9.pre3)
       activesupport (>= 3.2)
       addressable (~> 2.3)
@@ -91,8 +87,9 @@ GEM
       memoist (~> 0.12)
       multi_json (~> 1.11)
       signet (~> 0.6)
+    http-cookie (1.0.2)
+      domain_name (~> 0.5)
     hurley (0.2)
->>>>>>> 1f9eda0338de04cbea2fe7b9fcfc6e0d8f3af8d4
     i18n (0.7.0)
     jbuilder (2.3.2)
       activesupport (>= 3.0.0, < 5)
@@ -111,7 +108,6 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-<<<<<<< HEAD
     mechanize (2.7.3)
       domain_name (~> 0.5, >= 0.5.1)
       http-cookie (~> 1.0)
@@ -121,21 +117,16 @@ GEM
       nokogiri (~> 1.4)
       ntlm-http (~> 0.1, >= 0.1.1)
       webrobots (>= 0.0.9, < 0.2)
-=======
     memoist (0.13.0)
->>>>>>> 1f9eda0338de04cbea2fe7b9fcfc6e0d8f3af8d4
-    mime-types (2.6.2)
-    mini_portile (0.6.2)
-    minitest (5.8.1)
+    mime-types (2.99)
+    mini_portile2 (2.0.0)
+    minitest (5.8.3)
     multi_json (1.11.2)
-<<<<<<< HEAD
+    multipart-post (2.0.0)
     net-http-digest_auth (1.4)
     net-http-persistent (2.9.4)
-=======
-    multipart-post (2.0.0)
->>>>>>> 1f9eda0338de04cbea2fe7b9fcfc6e0d8f3af8d4
-    nokogiri (1.6.6.2)
-      mini_portile (~> 0.6.0)
+    nokogiri (1.6.7)
+      mini_portile2 (~> 2.0.0.rc2)
     ntlm-http (0.1.1)
     orm_adapter (0.5.0)
     rack (1.6.4)
@@ -173,7 +164,7 @@ GEM
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
     retriable (2.1.0)
-    sass (3.4.18)
+    sass (3.4.19)
     sass-rails (5.0.4)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.1)
@@ -189,14 +180,14 @@ GEM
       faraday (~> 0.9)
       jwt (~> 1.5)
       multi_json (~> 1.10)
-    spring (1.4.0)
-    sprockets (3.3.5)
+    spring (1.5.0)
+    sprockets (3.4.1)
       rack (> 1, < 3)
     sprockets-rails (2.3.3)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
-    sqlite3 (1.3.10)
+    sqlite3 (1.3.11)
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.1)
@@ -248,4 +239,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.10.6
+   1.10.5
