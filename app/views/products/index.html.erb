@@ -53,7 +53,7 @@
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_product_path(product), :class => 'btn btn-default btn-xs' %>
-          <%= link_to image_tag("https://upload.wikimedia.org/wikipedia/en/8/80/Wikipedia-logo-v2.svg", :border => 0, :size => '40x15'), product_scrape_wikipedia_path(product), :class => 'btn btn-default btn-xs', method: :put %>
+          <%= link_to image_tag("http://www.blogcdn.com/www.engadget.com/media/2013/11/engadget-icon-big.png", :border => 0, :size => '40x15'), product_scrape_engadget_path(product), :class => 'btn btn-default btn-xs', method: :put %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
                       product_path(product),
                       :method => :delete,

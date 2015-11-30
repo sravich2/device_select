@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy, :scrape_amazon]
+  before_action :set_product, only: [:show, :edit, :update, :destroy, :scrape_amazon, :scrape_engadget ]
 
   # GET /products
   # GET /products.json
@@ -70,8 +70,8 @@ class ProductsController < ApplicationController
     redirect_to :action => 'index'
   end
 
-  def scrape_wikipedia
-    @product.get_details_from_wikipedia
+  def scrape_engadget
+    @product.get_details_from_engadget
     redirect_to :action => 'index'
   end
 

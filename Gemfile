@@ -47,3 +47,4 @@ end
 
 gem 'nokogiri'
 gem "twitter-bootstrap-rails"
+gem 'google-api-client', '0.9.pre3'
