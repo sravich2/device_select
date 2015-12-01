@@ -38,11 +38,13 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.8)
     arel (6.0.3)
+    awesome_print (1.6.1)
     bcrypt (3.1.10)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
     byebug (8.2.1)
+    chronic (0.10.2)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -50,6 +52,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
+    crass (1.0.2)
     debug_inspector (0.0.2)
     declarative (0.0.5)
       uber (>= 0.0.15)
@@ -67,6 +70,7 @@ GEM
     extlib (0.9.16)
     faraday (0.9.2)
       multipart-post (>= 1.2, < 3)
+    fast-stemmer (1.0.2)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     google-api-client (0.9.pre3)
@@ -128,8 +132,16 @@ GEM
     net-http-persistent (2.9.4)
     nokogiri (1.6.7)
       mini_portile2 (~> 2.0.0.rc2)
+    nokogumbo (1.4.1)
+      nokogiri
     ntlm-http (0.1.1)
     orm_adapter (0.5.0)
+    pismo (0.7.4)
+      awesome_print
+      chronic
+      fast-stemmer
+      nokogiri
+      sanitize
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -168,6 +180,10 @@ GEM
     ruby-readability (0.7.0)
       guess_html_encoding (>= 0.0.4)
       nokogiri (>= 1.6.0)
+    sanitize (4.0.0)
+      crass (~> 1.0.2)
+      nokogiri (>= 1.4.4)
+      nokogumbo (= 1.4.1)
     sass (3.4.19)
     sass-rails (5.0.4)
       railties (>= 4.0.0, < 5.0)
@@ -232,6 +248,7 @@ DEPENDENCIES
   jquery-rails
   mechanize
   nokogiri
+  pismo
   rails (= 4.2.3)
   ruby-readability
   sass-rails (~> 5.0)

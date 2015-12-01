@@ -49,6 +49,6 @@ gem 'nokogiri'
 gem "twitter-bootstrap-rails"
 
 gem 'mechanize'
-gem 'ruby-readability'
+gem "ruby-readability", :require => 'readability'
 gem 'google-api-client', '0.9.pre3'
 

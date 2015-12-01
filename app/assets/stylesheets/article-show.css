@@ -1,0 +1,71 @@
+.article {
+    width: 50%;
+    margin: auto;
+    font-family: 'Sorts Mill Goudy', Georgia, sans-serif;
+    font-variant-numeric: lining-nums;
+}
+
+.article-title {
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.5em;
+    margin: 1rem 0 1rem  0;
+}
+
+.article-header {
+    color: #999999;
+    text-align: center;
+    margin: 1rem 0 1rem 0;
+}
+
+.article-author {
+    text-transform: uppercase;
+}
+
+.article-header >* {
+    display: inline-block;
+}
+
+.article-content {
+    font-size: 1.7rem;
+    text-align: justify;
+}
+
+.settings > * > *{
+    display: inline-block;
+    width: 10%;
+    height: auto;
+    margin: 1.5rem 0.5rem 0 0.5rem;
+}
+
+.background-settings > *{
+    width: 1.5em;
+    height: 1.5em;
+    line-height: 1.5em;
+    border: thin solid;
+}
+
+.background-setting-black {
+    background-color: black;
+    color: white;
+}
+
+.background-setting-lightyellow {
+    background-color: lightyellow;
+}
+
+.settings > * > *:focus {
+    outline: 0;
+}
+
+.settings > * {
+    text-align: center;
+}
+
+img, iframe {
+    max-width: 100%;
+    max-height: 100%;
+    float: right;
+    padding: 1rem 1rem 1rem 1rem;
+}
+

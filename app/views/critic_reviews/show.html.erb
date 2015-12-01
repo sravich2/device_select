@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link href=' http://fonts.googleapis.com/css?family=Sorts+Mill+Goudy&subset=all' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<div class='container'>
+  <div class="settings row">
+    <div class="align-settings col-md-2 col-md-offset-2">
+      <input type="image" align-value='justify' src="http://icons.iconarchive.com/icons/icons8/ios7/256/Editing-Align-Justify-icon.png">
+      <input type="image" align-value='left' src="http://icons.iconarchive.com/icons/icons8/ios7/256/Editing-Align-Left-icon.png">
+    </div>
+    <div class="length-settings col-md-2">
+      <input type="image" length-action='+' src="https://cdn4.iconfinder.com/data/icons/epic-outlines/30/enlarge_horizontal-128.png">
+      <input type="image" length-action='-' src="https://cdn3.iconfinder.com/data/icons/arrow-new/64/arrows_shrink_horizontal1-512.png">
+    </div>
+    <div class="font-size-settings col-md-2">
+      <input type="image" font-size-action="+" src="http://icons.iconarchive.com/icons/icons8/ios7/512/Arrows-Up-4-icon.png">
+      <span class="glyphicon glyphicon-text-size" aria-hidden="true"></span>
+      <input type="image" font-size-action="-" src="http://icons.iconarchive.com/icons/icons8/ios7/512/Arrows-Down-4-icon.png">
+    </div>
+    <div class = "background-settings col-md-2">
+      <div class = "background-setting-white" bg-color-value="white" style="cursor: pointer;">a</div>
+      <div class = "background-setting-black" bg-color-value="black" style="cursor: pointer;">a</div>
+      <div class = "background-setting-lightyellow" bg-color-value="lightyellow" style="cursor: pointer;">a</div>
+    </div>
+  </div>
+</div>
+<div class = "container article-container">
+  <div class="article">
+    <div class="article-title"><%= @title %></div>
+    <div class="article-header">
+      <div class="article-author"><%= "#{@author}" %></div>
+      <div class="article-published"><%# " | #{@published.to_date.to_s(:rfc822)} " %></div>
+      <div class="article-feed-title"><%# " | #{Feed.find(@article.feed_id).title}" %></div>
+    </div>
+    <div class="article-content">
+      <%= @html.try(:html_safe) %>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Critic Reviews</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @critic_reviews.each do |critic_review| %>
+      <tr>
+        <td><%= link_to 'Show', critic_review %></td>
+        <td><%= link_to 'Edit', edit_critic_review_path(critic_review) %></td>
+        <td><%= link_to 'Destroy', critic_review, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Critic review', new_critic_review_path %>
