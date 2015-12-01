@@ -1,5 +1,6 @@
 require 'open-uri'
-#require 'googleajax'
+require 'rubygems'
+require 'readability'
 
 class Product < ActiveRecord::Base
   has_many :user_reviews
@@ -36,7 +37,42 @@ class Product < ActiveRecord::Base
     self.save!
   end
 
+  def get_critic_reviews
+    product_page_url = fetch_engadget_page_url(self.name)
+    agent = Mechanize.new
+    product_page = agent.get(product_page_url)
+    product_page.links_with(:text => /Read the full review.+/)[0...1].each do |link|
+      puts link.href
+      puts generate_readable_html(link.href)
+    end
+  end
+
+
   private
+
+  def generate_readable_html(url)
+    readability_url = "http://www.readability.com/read?url=#{url}"
+    html_content = open(readability_url).read
+    html_doc = Nokogiri::HTML(html_content)
+    complete_content_html = html_doc.search('//article').first.to_html
+    complete_content_html_doc = Nokogiri::HTML(complete_content_html)
+    header_html = html_doc.search('//header').first.to_html
+    content_html_doc = complete_content_html_doc.search('//section').first
+    content_html_doc.search('//ul').each do |node|
+      node.remove
+    end
+
+    original_html = Nokogiri::HTML(open(self.url).read)
+    css_lines = original_html.css('link[href$=css]')
+
+    final_html = '<html><head>'
+    css_lines.each do |line|
+      final_html = final_html + line.to_html
+    end
+    final_html = final_html + "</head><body>#{content_html_doc.to_html}</body></html>"
+  end
+
+
   def fetch_amazon_page_url(product)
     product_param = product.downcase.split(' ').join('+')
     page_html = open("http://www.amazon.com/s/field-keywords=#{product_param}", "User-Agent" => "Device Select").read

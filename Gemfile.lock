@@ -87,6 +87,7 @@ GEM
       memoist (~> 0.12)
       multi_json (~> 1.11)
       signet (~> 0.6)
+    guess_html_encoding (0.0.11)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
     hurley (0.2)
@@ -164,6 +165,9 @@ GEM
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
     retriable (2.1.0)
+    ruby-readability (0.7.0)
+      guess_html_encoding (>= 0.0.4)
+      nokogiri (>= 1.6.0)
     sass (3.4.19)
     sass-rails (5.0.4)
       railties (>= 4.0.0, < 5.0)
@@ -229,6 +233,7 @@ DEPENDENCIES
   mechanize
   nokogiri
   rails (= 4.2.3)
+  ruby-readability
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   spring
