@@ -1,19 +1,24 @@
 require 'open-uri'
-#require 'googleajax'
 
 class Product < ActiveRecord::Base
   has_many :user_reviews
 
   def self.search(string)
+    if string.split(',')[-1].strip.start_with?('sort') == true
+      order_param = string.split(',')[-1].strip
+      string = string.split(',')[0...-1].join(',') 
+      order = order_param.split('sort:')[1].strip
+      s = order.split(' ')
+      hash = {s[1].to_sym => s[0].to_sym}
+    end
     conditions = string.split(',').collect do |m|
       m.strip!
       delim = (m.include?('=') ? '=' : 'like')
       expr = m.split(/=|like/i)
       "#{expr[0].strip.downcase.tr(' ', '_')} #{delim} '#{expr[1].strip}'"
-         end
+    end
     final_condition = conditions.join(' AND ')
-    puts final_condition
-    Product.where(final_condition)
+    Product.where(final_condition).order(hash)
   end
 
   def get_details_from_amazon
@@ -21,7 +26,7 @@ class Product < ActiveRecord::Base
     product_page_html = open(product_page_url, "User-Agent" => "Device Select").read
     @html_doc = Nokogiri::HTML(product_page_html)
 
-    amazon_fields = {:camera => 'Webcam', :screen_size => 'Screen Size', :company => 'Brand Name', :memory => 'RAM', :processor => 'Processor', :battery => 'Average Battery Life (in hours)' }
+    amazon_fields = {:camera => 'Webcam', :screen_size => 'Screen Size', :company => 'Brand Name', :memory => 'RAM', :processor => 'Processor', :battery => 'Average Battery Life (in hours)'}
     new_attrs = {}
     amazon_fields.keys.each do |f|
       attr = @html_doc.xpath("//div[@class='pdTab']/table/tbody/tr/td[contains(text(), '#{amazon_fields[f]}')]/following-sibling::td/text()").to_s
@@ -34,6 +39,11 @@ class Product < ActiveRecord::Base
     new_attrs[:img_url] = @html_doc.xpath("//li[contains(@class, 'itemNo0')]//img[contains(@id, 'landingImage')]/@src").to_s
     self.update(new_attrs)
     self.save!
+  end
+
+
+  def price_alert
+
   end
 
   private
