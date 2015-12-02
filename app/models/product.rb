@@ -7,24 +7,39 @@ class Product < ActiveRecord::Base
   def self.search(string)
   sort = false
   new_string = string
+
+  if new_string.blank?
+    products = Product.all
+  else
     if string.split(',')[-1].strip.start_with?('sort')
       sort = true
       order_param = string.split(',')[-1].strip
-      new_string = string[0..string.rindex(',')]
+      last_index = string.rindex(',')
+      if !last_index.nil?
+      new_string = string[0..last_index]
+      else
+        new_string = ''
+        end
       order = order_param.split('sort:')[1].strip
       s = order.split(' ', 2)
       hash = {s[1].downcase.tr(' ', '_').to_sym => s[0].to_sym}
     end
+    if new_string.blank?
+      products = Product.all
+    else
+      conditions = new_string.split(',').collect do |m|
+        m.strip!
+        delim = (m.include?('=') ? '=' : 'like')
+        expr = m.split(/=|like/i)
+        "#{expr[0].strip.downcase.tr(' ', '_')} #{delim} '#{expr[1].strip}'"
+      end
 
-    conditions = new_string.split(',').collect do |m|
-      m.strip!
-      delim = (m.include?('=') ? '=' : 'like')
-      expr = m.split(/=|like/i)
-      "#{expr[0].strip.downcase.tr(' ', '_')} #{delim} '#{expr[1].strip}'"
+      final_condition = conditions.join(' AND ')
+      products = Product.where(final_condition)
     end
 
-    final_condition = conditions.join(' AND ')
-    products = Product.where(final_condition)
+  end
+
     if sort
       return products.order(hash)
     else
