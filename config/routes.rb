@@ -26,6 +26,7 @@ end
 
   resources :critic_reviews
 
+  get 'products_recommend', to: 'products#recommend', as: 'product_recommend'
   # Example resource route with options:
   #   resources :products do
   #     member do

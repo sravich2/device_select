@@ -55,6 +55,10 @@ class ProductsController < ApplicationController
     end
   end
 
+  def recommend
+
+  end
+
   # DELETE /products/1
   # DELETE /products/1.json
   def destroy
