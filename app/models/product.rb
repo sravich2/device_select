@@ -5,8 +5,10 @@ class Product < ActiveRecord::Base
   has_many :critic_reviews
 
   def self.search(string)
-
+  sort = false
+  new_string = string
     if string.split(',')[-1].strip.start_with?('sort')
+      sort = true
       order_param = string.split(',')[-1].strip
       new_string = string[0..string.rindex(',')]
       order = order_param.split('sort:')[1].strip
@@ -22,8 +24,13 @@ class Product < ActiveRecord::Base
     end
 
     final_condition = conditions.join(' AND ')
-    Product.where(final_condition).order(hash)
+    products = Product.where(final_condition)
+    if sort
+      return products.order(hash)
+    else
+      return products
     end
+  end
 
   def get_details_from_amazon
     product_page_url = fetch_amazon_page_url(self.name)
@@ -90,7 +97,6 @@ class Product < ActiveRecord::Base
     # screen_size = @html_doc.xpath("//td[text() = 'Brand Name']/following-sibling::td/text()").to_s
 
   end
-
 
 
   def fetch_engadget_page_url(product)
