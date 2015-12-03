@@ -17,7 +17,8 @@ ActiveRecord::Schema.define(version: 20151203183823) do
     t.integer  "product_id"
     t.integer  "like_count"
     t.integer  "have_count"
-    t.float    "price"
+    t.integer  "price"
+    t.date     "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

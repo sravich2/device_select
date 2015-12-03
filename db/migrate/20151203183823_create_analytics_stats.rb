@@ -4,8 +4,8 @@ class CreateAnalyticsStats < ActiveRecord::Migration
       t.belongs_to :product
       t.integer :like_count
       t.integer :have_count
-      t.float :price
-
+      t.integer :price
+      t.date :date
       t.timestamps null: false
     end
   end

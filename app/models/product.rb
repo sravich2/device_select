@@ -147,9 +147,10 @@ class Product < ActiveRecord::Base
   # private
   def fetch_amazon_page_url(product)
     product_param = product.downcase.split(' ').join('+')
-    page_html = open("http://www.amazon.com/s/field-keywords=#{product_param}", "User-Agent" => "Device Select").read
-    @html_doc = Nokogiri::HTML(page_html)
-    product_page_url = @html_doc.xpath("//li[@id='result_0']//a[contains(@class, 's-access-detail-page')]/@href").to_s
+    agent = Mechanize.new
+    results_page = agent.get("https://www.google.com/search?q=#{product_param}+amazon+%22*phone%22+OR+%22tablet%22+OR+%22laptop%22+site%3Aamazon.com")
+    # page_html = open("http://www.amazon.com/s/field-keywords=#{product_param}", "User-Agent" => "Device Select").read
+    results_page.links[24].href.split('/url?q=')[1].split('&sa')[0]
     ## Only for testing
     # product_page_html = open(product_page_url).read
     # @html_doc = Nokogiri::HTML(product_page_html)

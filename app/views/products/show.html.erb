@@ -1,3 +1,4 @@
+<%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
 <%- model_class = Product -%>
 <div class="page-header">
   <h1><%= t '.title', :default => model_class.model_name.human.titleize %></h1>
@@ -39,11 +40,18 @@
             :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
             :class => 'btn btn-danger' %>
 
-<%= render 'user_reviews/index', :reviews => @product.user_reviews.sort_by {|r| r.created_at }.reverse! %>
+<%= render 'user_reviews/index', :reviews => @product.user_reviews.sort_by { |r| r.created_at }.reverse! %>
 
 <div class="btn-group like-want-buttons" role="group">
   <%= link_to t('.I have it!', 'button-value' => "have"), likes_create_possession_path(:product_id => @product.id, :user_id => current_user.id), :method => 'post', :class => 'btn btn-primary', :remote => true %>
   <p class="have-count"><%= @product.havers.count %></p>
   <%= link_to t('.I want it!', 'button-value' => "like"), likes_create_like_path(:product_id => @product.id, :user_id => current_user.id), :method => 'post', :class => 'btn btn-primary', :remote => true %>
   <p class="like-count"><%= @product.likers.count %></p>
+</div>
+
+<div class="analytics">
+  <h1>Analytics</h1>
+  <%= line_chart(@product.analytics_stats.collect { |a| {a.date => a.like_count} }.inject(:merge), {library: {pointSize: 0, hAxis: {title: "Timeline"}, vAxis: {title: "Users that Like"}}}) %>
+  <%= line_chart(@product.analytics_stats.collect { |a| {a.date => a.have_count} }.inject(:merge), {library: {pointSize: 0, hAxis: {title: "Timeline"}, vAxis: {title: "Users that have"}}}) %>
+  <%= line_chart(@product.analytics_stats.collect { |a| {a.date => a.price} }.inject(:merge), {library: {pointSize: 0, hAxis: {title: "Timeline"}, vAxis: {title: "Price"}}}) %>
 </div>
