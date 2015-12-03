@@ -52,4 +52,6 @@ gem 'mechanize'
 gem "ruby-readability", :require => 'readability'
 gem 'google-api-client', '0.9.pre3'
 gem 'pismo'
-
+gem 'tactful_tokenizer'
+gem 'tokenizer'
+gem 'stopwords'

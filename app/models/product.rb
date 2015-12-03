@@ -71,7 +71,6 @@ class Product < ActiveRecord::Base
 
   end
 
-
   def self.generate_readable_html(url)
     readability_url = "http://www.readability.com/m?url=#{CGI::escape(url)}"
     html_content = open(readability_url).read
@@ -94,9 +93,44 @@ class Product < ActiveRecord::Base
 
     final_html = '<html><head>'
     css_lines.each do |line|
-      final_html = final_html + line.to_html
+      # final_html = final_html + line.to_html
     end
     return final_html + "</head><body>#{content_html_doc.to_html}</body></html>", title, author, published
+  end
+
+  # Returns array of sentences
+  def self.generate_summary(html)
+    html_doc = Nokogiri::HTML(html)
+    paragraphs = []
+    m = TactfulTokenizer::Model.new
+    tokenizer = Tokenizer::Tokenizer.new
+    html_doc.search('p').each do |p|
+      paragraphs << m.tokenize_text(p.text) unless p.text.blank? || p.text.length <= 50 || p.text.downcase.include?('comments')
+    end
+    sentences = paragraphs.flatten
+    sentence_pair_scores = Hash.new
+    sentences.each do |s1|
+      sentences.each do |s2|
+        if s1 == s2
+          sentence_pair_scores[[s1, s2]] = 0
+        else
+          sentence_pair_scores[[s1, s2]] = (tokenizer.tokenize(s1).select { |t| Stopwords.valid?(t) } & tokenizer.tokenize(s2).select { |t| Stopwords.valid?(t) }).count
+        end
+      end
+    end
+    sentence_scores = {}
+    sentences.each do |s|
+      sentence_scores[s] = 0
+      sentences.each do |s2|
+        sentence_scores[s] += sentence_pair_scores[[s, s2]]
+      end
+    end
+    full_summary = paragraphs.collect { |p| sentence_scores.slice(*p).sort_by {|_, v| -v }.first }
+    threshold = full_summary.sort_by {|sentence, score| -score}[5][1]
+    summary = sentence_scores.select { |s, score| s if score >= threshold}.keys
+    # Ensure a sentence from first and last paragraphs
+    summary.unshift(full_summary.first[0]) if full_summary.first[1] < threshold
+    summary << full_summary.last[0] if full_summary.last[1] < threshold
   end
 
   private
@@ -111,7 +145,6 @@ class Product < ActiveRecord::Base
     # screen_size = @html_doc.xpath("//td[text() = 'Brand Name']/following-sibling::td/text()").to_s
 
   end
-
 
   def fetch_engadget_page_url(product)
     product_param = product.downcase.split(' ').join('+')

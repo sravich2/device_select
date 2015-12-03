@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20151201045344) do
 
   create_table "critic_reviews", force: :cascade do |t|
     t.integer  "product_id"
+    t.string   "url"
     t.float    "rating"
     t.text     "page_html"
     t.datetime "created_at", null: false
