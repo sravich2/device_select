@@ -52,15 +52,20 @@ $(document).ready(function () {
 
         $('.image-settings').on('click', '*', function () {
             var img_display_class;
-            var display_setting = $(this).attr('display_value');
+            var display_setting = $(this).attr('display-value');
             if (display_setting == 'block') {
                 $('img').css("display", "none");
-                $(this).attr('display_value', 'none');
+                $(this).attr('display-value', 'none');
             }
             else {
                 $('img').css("display", "block");
-                $(this).attr('display_value', 'block');
+                $(this).attr('display-value', 'block');
             }
+        });
+
+        $('.summary-settings').on('click', '*', function() {
+            var summary_size = $(this).attr('summary-value');
+            $('.article-content').html('<p>Hello World</p>');
         });
 
         $(document).keydown(function (e) {

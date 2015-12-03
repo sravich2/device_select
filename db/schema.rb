@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151201045344) do
+ActiveRecord::Schema.define(version: 20151203183823) do
+
+  create_table "analytics_stats", force: :cascade do |t|
+    t.integer  "product_id"
+    t.integer  "like_count"
+    t.integer  "have_count"
+    t.float    "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "companies", force: :cascade do |t|
     t.string   "name"
@@ -29,6 +38,20 @@ ActiveRecord::Schema.define(version: 20151201045344) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "possessions", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "products", force: :cascade do |t|
     t.string   "processor"
     t.string   "screen_size"
@@ -41,6 +64,8 @@ ActiveRecord::Schema.define(version: 20151201045344) do
     t.string   "img_url"
     t.string   "type"
     t.string   "company"
+    t.integer  "want_count"
+    t.integer  "have_count",  default: 0
   end
 
   create_table "user_reviews", force: :cascade do |t|

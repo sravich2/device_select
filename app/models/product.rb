@@ -1,8 +1,13 @@
 require 'open-uri'
 
 class Product < ActiveRecord::Base
+  has_many :analytics_stats
   has_many :user_reviews
   has_many :critic_reviews
+  has_many :likes
+  has_many :possessions
+  has_many :likers, through: :likes, source: :user
+  has_many :havers, through: :possessions, source: :user
 
   def self.search(string)
     sort = false
@@ -64,6 +69,12 @@ class Product < ActiveRecord::Base
     new_attrs[:img_url] = @html_doc.xpath("//li[contains(@class, 'itemNo0')]//img[contains(@id, 'landingImage')]/@src").to_s
     self.update(new_attrs)
     self.save!
+  end
+
+  def get_details_from_engadget
+    product_specs_url = fetch_engadget_page_url(self.name)+'specs'
+    agent = Mechanize.new
+    specs_page = agent.get(product_specs_url)
   end
 
 
@@ -133,7 +144,7 @@ class Product < ActiveRecord::Base
     summary << full_summary.last[0] if full_summary.last[1] < threshold
   end
 
-  private
+  # private
   def fetch_amazon_page_url(product)
     product_param = product.downcase.split(' ').join('+')
     page_html = open("http://www.amazon.com/s/field-keywords=#{product_param}", "User-Agent" => "Device Select").read

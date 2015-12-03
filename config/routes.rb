@@ -1,14 +1,16 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users do
+    get '/users/sign_out' => 'devise/sessions#destroy'
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
-devise_scope :user do
-  root to: "products#index"
-end
-
+# devise_scope :user do
+#   root to: "products#index"
+# end
+  root 'products#index'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
@@ -27,6 +29,8 @@ end
   resources :critic_reviews
 
   get 'products_recommend', to: 'products#recommend', as: 'product_recommend'
+    post 'likes/create_like', to: 'likes#create_like'
+    post 'likes/create_possession', to: 'likes#create_possession'
   # Example resource route with options:
   #   resources :products do
   #     member do

@@ -40,3 +40,10 @@
             :class => 'btn btn-danger' %>
 
 <%= render 'user_reviews/index', :reviews => @product.user_reviews.sort_by {|r| r.created_at }.reverse! %>
+
+<div class="btn-group like-want-buttons" role="group">
+  <%= link_to t('.I have it!', 'button-value' => "have"), likes_create_possession_path(:product_id => @product.id, :user_id => current_user.id), :method => 'post', :class => 'btn btn-primary', :remote => true %>
+  <p class="have-count"><%= @product.havers.count %></p>
+  <%= link_to t('.I want it!', 'button-value' => "like"), likes_create_like_path(:product_id => @product.id, :user_id => current_user.id), :method => 'post', :class => 'btn btn-primary', :remote => true %>
+  <p class="like-count"><%= @product.likers.count %></p>
+</div>
