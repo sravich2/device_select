@@ -57,3 +57,9 @@
   <%= line_chart(@product.analytics_stats.collect { |a| {a.date => a.have_count} }.inject(:merge), {library: {pointSize: 0, hAxis: {title: "Timeline"}, vAxis: {title: "Users that have"}}}) %>
   <%= line_chart(@product.analytics_stats.collect { |a| {a.date => a.price} }.inject(:merge), {library: {pointSize: 0, hAxis: {title: "Timeline"}, vAxis: {title: "Price"}}}) %>
 </div>
+<div class="critic-reviews">
+  <h1>Critic Reviews</h1>
+  <% @product.critic_reviews.each do |r| %>
+      <%= link_to r.title, critic_review_path(:id => r.id) %>: <%= link_to 'Summary', critic_review_path(:id => r.id, :summary => true) %><br>
+  <% end %>
+</div>

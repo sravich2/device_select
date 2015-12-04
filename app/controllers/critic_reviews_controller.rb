@@ -10,7 +10,8 @@ class CriticReviewsController < ApplicationController
   # GET /critic_reviews/1
   # GET /critic_reviews/1.json
   def show
-    @html, @title, @author, @published = Product.generate_readable_html(CriticReview.find(params[:id]).url)
+    @review = CriticReview.find(params[:id])
+    @summary = params[:summary]
   end
 
   # GET /critic_reviews/new

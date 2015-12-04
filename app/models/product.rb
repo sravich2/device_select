@@ -134,12 +134,13 @@ class Product < ActiveRecord::Base
         sentence_scores[s] += sentence_pair_scores[[s, s2]]
       end
     end
-    full_summary = paragraphs.collect { |p| sentence_scores.slice(*p).sort_by {|_, v| -v }.first }
-    threshold = full_summary.sort_by {|sentence, score| -score}[5][1]
-    summary = sentence_scores.select { |s, score| s if score >= threshold}.keys
+    full_summary = paragraphs.collect { |p| sentence_scores.slice(*p).sort_by {|_, v| -v }.first[0] }
+    # threshold = full_summary.sort_by {|sentence, score| -score}[5][1]
+    # summary = sentence_scores.select { |s, score| s if score >= threshold}.keys
     # Ensure a sentence from first and last paragraphs
-    summary.unshift(full_summary.first[0]) if full_summary.first[1] < threshold
-    summary << full_summary.last[0] if full_summary.last[1] < threshold
+    # summary.unshift(full_summary.first[0]) if full_summary.first[1] < threshold
+    # summary << full_summary.last[0] if full_summary.last[1] < threshold
+    '<p>' + full_summary.join('</p><p>') + '</p>'
   end
 
   #Kausik's price methods

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151204043733) do
+ActiveRecord::Schema.define(version: 20151204083827) do
 
   create_table "analytics_stats", force: :cascade do |t|
     t.integer  "product_id"
@@ -33,10 +33,13 @@ ActiveRecord::Schema.define(version: 20151204043733) do
   create_table "critic_reviews", force: :cascade do |t|
     t.integer  "product_id"
     t.string   "url"
-    t.float    "rating"
     t.text     "page_html"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text     "summary"
+    t.string   "title"
+    t.string   "author"
+    t.datetime "published"
   end
 
   create_table "infosets", force: :cascade do |t|
