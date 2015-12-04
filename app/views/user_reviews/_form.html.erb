@@ -16,14 +16,12 @@
       <div class="controls">
         <%= f.text_area :comment, :class => 'form-control', :cols => '10', :rows => '10' %>
       </div>
-      <%= error_span(@user_review[:comment]) %>
     </div>
     <div class="control-group">
       <%= f.label :rating, :class => 'control-label' %>
       <div class="controls">
         <%= f.select :rating, 1..10 %>
       </div>
-      <%= error_span(@user_review[:comment]) %>
     </div>
   <div class="actions">
     <%= f.submit %>

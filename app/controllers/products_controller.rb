@@ -60,11 +60,16 @@ class ProductsController < ApplicationController
     other_users = User.all - [current_user]
     user_similarities = {}
     other_users.each do |u|
-      user_similarities[u] = ((current_user.liked_products & u.liked_products).count +
-          (current_user.disliked_products & u.disliked_products).count -
-          (current_user.liked_products & u.disliked_products).count -
-          (current_user.disliked_products & u.liked_products).count) /
-          (current_user.liked_products | current_user.disliked_products | u.liked_products | u.disliked_products).count
+      if (current_user.liked_products | current_user.disliked_products | u.liked_products | u.disliked_products).count == 0
+        user_similarities[u] = 0
+      else
+        user_similarities[u] = ((current_user.liked_products & u.liked_products).count +
+            (current_user.disliked_products & u.disliked_products).count -
+            (current_user.liked_products & u.disliked_products).count -
+            (current_user.disliked_products & u.liked_products).count) /
+            (current_user.liked_products | current_user.disliked_products | u.liked_products | u.disliked_products).count
+      end
+
     end
 
     product_like_probs = {}
