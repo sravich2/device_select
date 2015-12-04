@@ -47,7 +47,7 @@
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_product_path(product), :class => 'btn btn-default btn-xs' %>
-          <%= link_to image_tag("http://amazonpickingchallenge.org/amazon_logo.png", :border => 0, :size => '40x15'), product_scrape_amazon_path(product), :class => 'btn btn-default btn-xs', method: :put %>
+          <%= link_to image_tag("http://amazonpickingchallenge.org/amazon_logo.png", :class => 'amazon-pic', :border => 0, :size => '40x15'), product_scrape_amazon_path(product), :class => 'btn btn-default btn-xs', method: :put %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
                       product_path(product),
                       :method => :delete,
