@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151203183823) do
+ActiveRecord::Schema.define(version: 20151204043733) do
 
   create_table "analytics_stats", force: :cascade do |t|
     t.integer  "product_id"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20151203183823) do
 
   create_table "critic_reviews", force: :cascade do |t|
     t.integer  "product_id"
+    t.string   "url"
     t.float    "rating"
     t.text     "page_html"
     t.datetime "created_at", null: false
@@ -42,10 +43,10 @@ ActiveRecord::Schema.define(version: 20151203183823) do
     t.integer  "product_id"
     t.integer  "seller_id"
     t.float    "price"
-    t.integer  "shipping_times"
+    t.string   "url"
     t.datetime "date"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "likes", force: :cascade do |t|
@@ -74,6 +75,9 @@ ActiveRecord::Schema.define(version: 20151203183823) do
     t.string   "img_url"
     t.string   "type"
     t.string   "company"
+    t.integer  "want_count"
+    t.integer  "have_count",  default: 0
+    t.integer  "price"
   end
 
   create_table "user_reviews", force: :cascade do |t|

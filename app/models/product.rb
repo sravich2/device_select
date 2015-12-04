@@ -67,6 +67,7 @@ class Product < ActiveRecord::Base
     end
 
     new_attrs[:img_url] = @html_doc.xpath("//li[contains(@class, 'itemNo0')]//img[contains(@id, 'landingImage')]/@src").to_s
+    new_attrs[:price] =
     self.update(new_attrs)
     self.save!
   end

@@ -24,6 +24,7 @@
       <th><%= model_class.human_attribute_name(:memory) %></th>
       <th><%= model_class.human_attribute_name(:camera) %></th>
       <th><%= model_class.human_attribute_name(:battery) %></th>
+      <th><%= model_class.human_attribute_name(:price) %></th>
       <th><%# model_class.human_attribute_name(:img_url) %></th>
       <th><%# model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
@@ -40,6 +41,7 @@
         <td><%= product.memory %></td>
         <td><%= product.camera %></td>
         <td><%= product.battery %></td>
+        <td><%= product.price %></td>
         <td><%# product.img_url %></td>
         <td><%#l product.created_at %></td>
         <td>
