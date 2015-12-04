@@ -66,7 +66,7 @@ class ProductsController < ApplicationController
         user_similarities[u] = ((current_user.liked_products & u.liked_products).count +
             (current_user.disliked_products & u.disliked_products).count -
             (current_user.liked_products & u.disliked_products).count -
-            (current_user.disliked_products & u.liked_products).count) /
+            (current_user.disliked_products & u.liked_products).count).to_f /
             (current_user.liked_products | current_user.disliked_products | u.liked_products | u.disliked_products).count
       end
 
@@ -77,7 +77,7 @@ class ProductsController < ApplicationController
       if p.likers.count + p.dislikers.count == 0
         product_like_probs[p] = 0
       else
-        product_like_probs[p] = (user_similarities.slice(*p.likers).values.sum - user_similarities.slice(*p.dislikers).values.sum)/(p.likers.count + p.dislikers.count)
+        product_like_probs[p] = (user_similarities.slice(*p.likers).values.sum - user_similarities.slice(*p.dislikers).values.sum).to_f/(p.likers.count + p.dislikers.count)
       end
     end
     @recommendations = product_like_probs.sort_by { |k,v| -v }[0..2].collect { |a| a[0] }
