@@ -2,13 +2,13 @@ class FetchCriticReviewsJob < ActiveJob::Base
   queue_as :default
 
   def perform(product)
-    begin
-    page_url = Product.fetch_engadget_page_url(product.name) + 'scores'
+    page_url = Product.fetch_engadget_page_url(product.name) + 'scores/'
+    puts page_url
       agent = Mechanize.new
       page = agent.get(page_url)
-      xpaths = ['/html/body/div/div/div[2]/main/div[2]//div[2]/div/div/div/div[1]/div/div[4]/div/div[2]/div[1]/div',
-                '/html/body/div/div/div[2]/main/div[2]//div[2]/div/div/div/div[1]/div/div[5]/div/div[2]/div[1]/div',
-                '/html/body/div/div/div[2]/main/div[2]//div[2]/div/div/div/div[1]/div/div[6]/div/div[2]/div[1]/div']
+      xpaths = ['div.border-bottom:nth-child(4) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)',
+                'div.border-bottom:nth-child(5) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)',
+                'div.border-bottom:nth-child(6) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)']
       xpaths.each do |xp|
         q = page.search(xp).text.delete("\n").strip
         page2 = agent.get("http://www.google.com/search?q=#{q}")
@@ -17,7 +17,5 @@ class FetchCriticReviewsJob < ActiveJob::Base
         summary = Product.generate_summary(html)
         CriticReview.create(:product_id => product.id, :url => url, :page_html => html, :title => title, :author => author, :published => published, :summary => summary)
       end
-    end
-    rescue
   end
 end
