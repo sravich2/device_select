@@ -67,7 +67,15 @@ class Product < ActiveRecord::Base
     end
 
     new_attrs[:img_url] = @html_doc.xpath("//li[contains(@class, 'itemNo0')]//img[contains(@id, 'landingImage')]/@src").to_s
-    new_attrs[:price] =
+    agent = Mechanize.new
+    results_page = agent.get(product_page_url)
+    price = results_page.search("//*[@id='priceblock_ourprice']").text
+    if (price.blank?)
+      price = results_page.search("//*[@id='olp_feature_div']/div/span[1]/span").text
+    end
+    price = price.delete "$,"
+    price = price.to_i
+    new_attrs[:price] = price
     self.update(new_attrs)
     self.save!
   end
@@ -158,7 +166,7 @@ class Product < ActiveRecord::Base
 
   end
 
-  def fetch_engadget_page_url(product)
+  def self.fetch_engadget_page_url(product)
     product_param = product.downcase.split(' ').join('+')
     agent = Mechanize.new
     results_page = agent.get("https://www.google.com/search?q=#{product_param}+site%3Aengadget.com%2Fproducts")
