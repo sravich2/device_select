@@ -6,7 +6,6 @@ class Jobs
         unless Product.where(:name => p).exists?
           prod = Product.create(:name => p)
           begin
-
           prod.get_details_from_amazon
         end
       end

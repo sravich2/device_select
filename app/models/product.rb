@@ -79,6 +79,7 @@ class Product < ActiveRecord::Base
     price = price.to_i
     new_attrs[:price] = price
     self.update(new_attrs)
+    puts self.errors
     self.save!
   end
 
