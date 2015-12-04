@@ -69,17 +69,17 @@ class Product < ActiveRecord::Base
     end
 
     new_attrs[:img_url] = @html_doc.xpath("//li[contains(@class, 'itemNo0')]//img[contains(@id, 'landingImage')]/@src").to_s
-    agent = Mechanize.new
-    results_page = agent.get(product_page_url)
-    price = results_page.search("//*[@id='priceblock_ourprice']").text
-    if (price.blank?)
-      price = results_page.search("//*[@id='olp_feature_div']/div/span[1]/span").text
-    end
-    price = price.delete "$,"
-    price = price.to_i
-    new_attrs[:price] = price
+    # agent = Mechanize.new
+    # results_page = agent.get(product_page_url)
+    # price = results_page.search("//*[@id='priceblock_ourprice']").text
+    # if (price.blank?)
+    #   price = results_page.search("//*[@id='olp_feature_div']/div/span[1]/span").text
+    # end
+    # price = price.delete "$,"
+    # price = price.to_i
+    # new_attrs[:price] = price
     self.update(new_attrs)
-    puts self.errors
+    # puts self.errors
     self.save!
   end
 
