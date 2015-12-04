@@ -15,7 +15,7 @@ class Jobs
     retry
   end
 
-  def self.fetch_critc_reviews(product)
+  def self.fetch_critic_reviews(product)
     begin
       page_url = Product.fetch_engadget_page_url(product.name) + 'scores'
       agent = Mechanize.new
