@@ -71,17 +71,6 @@ class Product < ActiveRecord::Base
     self.save!
   end
 
-  def get_details_from_engadget
-    product_specs_url = fetch_engadget_page_url(self.name)+'specs'
-    agent = Mechanize.new
-    specs_page = agent.get(product_specs_url)
-  end
-
-
-  def price_alert
-
-  end
-
   def self.generate_readable_html(url)
     readability_url = "http://www.readability.com/m?url=#{CGI::escape(url)}"
     html_content = open(readability_url).read
@@ -142,6 +131,16 @@ class Product < ActiveRecord::Base
     # Ensure a sentence from first and last paragraphs
     summary.unshift(full_summary.first[0]) if full_summary.first[1] < threshold
     summary << full_summary.last[0] if full_summary.last[1] < threshold
+  end
+
+  #Kausik's price methods
+  def get_price_from_amazon
+    product = Product.name
+    amazon_url = fetch_amazon_page_url(product)
+    agent = Mechanize.new
+    results_page = agent.get(amazon_url)
+    price = results_page.search("//*[@id='priceblock_ourprice']").text
+    price = price.slice!(1..-1).to_i
   end
 
   # private
