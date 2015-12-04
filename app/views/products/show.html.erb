@@ -44,11 +44,26 @@
 
 <%= render 'user_reviews/index', :reviews => @product.user_reviews.sort_by { |r| r.created_at }.reverse! %>
 
-<div class="btn-group like-want-buttons" role="group">
+<div class="like-want-buttons" role="group">
+  <br><div>
   <%= link_to t('.I have it!', 'button-value' => "have"), likes_create_possession_path(:product_id => @product.id, :user_id => current_user.id), :method => 'post', :class => 'btn btn-primary', :remote => true %>
-  <p class="have-count"><%= @product.havers.count %></p>
-  <%= link_to t('.I want it!', 'button-value' => "like"), likes_create_like_path(:product_id => @product.id, :user_id => current_user.id), :method => 'post', :class => 'btn btn-primary', :remote => true %>
-  <p class="like-count"><%= @product.likers.count %></p>
+  <span class = "label label-default"><%= @product.havers.count %></span>
+  </div>
+  <div>
+    <h5>Contact Info for owners of this product</h5>
+    <% @product.havers.each do |h| %>
+    <%= h.email %>
+        <% end %>
+  </div>
+  <%## @product.havers.count %>
+  <br><div>
+  <%= link_to t('.I like it!', 'button-value' => "like"), likes_create_like_path(:product_id => @product.id, :user_id => current_user.id), :method => 'post', :class => 'btn btn-primary', :remote => true %>
+  <span class = "label label-default"><%= @product.likers.count %></span>
+</div><br><div>
+  <%= link_to t('.I dislike it!', 'button-value' => "dislike"), likes_create_dislike_path(:product_id => @product.id, :user_id => current_user.id), :method => 'post', :class => 'btn btn-primary', :remote => true %>
+  <span class = "label label-default"><%= @product.dislikers.count %></span>
+</div><br>
+
 </div>
 
 <div class="analytics">

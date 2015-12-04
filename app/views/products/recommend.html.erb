@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+<h1>Recommendations</h1>
+<% @recommendations.each do |r| %>
+    <p><%= link_to r.name, product_path(:id => r.id) %></p>
+<% end %>
+</body>
+</html>

@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   get 'products_recommend', to: 'products#recommend', as: 'product_recommend'
     post 'likes/create_like', to: 'likes#create_like'
     post 'likes/create_possession', to: 'likes#create_possession'
+    post 'likes/create_dislike', to: 'likes#create_dislike'
   # Example resource route with options:
   #   resources :products do
   #     member do

@@ -57,7 +57,25 @@ class ProductsController < ApplicationController
   end
 
   def recommend
+    other_users = User.all - [current_user]
+    user_similarities = {}
+    other_users.each do |u|
+      user_similarities[u] = ((current_user.liked_products & u.liked_products).count +
+          (current_user.disliked_products & u.disliked_products).count -
+          (current_user.liked_products & u.disliked_products).count -
+          (current_user.disliked_products & u.liked_products).count) /
+          (current_user.liked_products | current_user.disliked_products | u.liked_products | u.disliked_products).count
+    end
 
+    product_like_probs = {}
+    (Product.all - current_user.owned_products).each do |p|
+      if p.likers.count + p.dislikers.count == 0
+        product_like_probs[p] = 0
+      else
+        product_like_probs[p] = (user_similarities.slice(*p.likers).values.sum - user_similarities.slice(*p.dislikers).values.sum)/(p.likers.count + p.dislikers.count)
+      end
+    end
+    @recommendations = product_like_probs.sort_by { |k,v| -v }[0..2].collect { |a| a[0] }
   end
 
   # DELETE /products/1

@@ -34,7 +34,9 @@
 </div>
 <div class="container article-container">
   <div class="article">
-    <div class="article-title"><%= @review.title %></div>
+    <div class="article-title"><%= @review.title %>
+    <% if @summary %>
+          (Summary) <% end %></div>
     <div class="article-header">
       <div class="article-author"><%= "#{@review.author}" %></div>
       <div class="article-published"><%# " | #{@published.to_date.to_s(:rfc822)} " %></div>

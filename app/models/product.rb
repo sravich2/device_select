@@ -5,8 +5,10 @@ class Product < ActiveRecord::Base
   has_many :user_reviews
   has_many :critic_reviews
   has_many :likes
+  has_many :dislikes
   has_many :possessions
   has_many :likers, through: :likes, source: :user
+  has_many :dislikers, through: :dislikes, source: :user
   has_many :havers, through: :possessions, source: :user
 
   def self.search(string)
