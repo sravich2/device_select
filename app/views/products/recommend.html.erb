@@ -7,7 +7,34 @@
 <body>
 <h1>Recommendations</h1>
 <% @recommendations.each do |r| %>
-    <p><%= link_to r.name, product_path(:id => r.id) %></p>
+
+    <div class="row">
+      <div class="col-md-3">
+        <dl class="dl-horizontal">
+          <dt><strong>Company:</strong></dt>
+          <dd><%= r.company %></dd>
+          <dt><strong>Processor:</strong></dt>
+          <dd><%= r.processor %></dd>
+          <dt><strong>Screen Size:</strong></dt>
+          <dd><%= r.screen_size %></dd>
+          <dt><strong>Name:</strong></dt>
+          <dd><%= r.name %></dd>
+          <dt><strong>Memory:</strong></dt>
+          <dd><%= r.memory %></dd>
+          <dt><strong>Camera:</strong></dt>
+          <dd><%= r.camera %></dd>
+          <dt><strong>Battery:</strong></dt>
+          <dd><%= r.battery %></dd>
+          <dt><strong>Price:</strong></dt>
+          <dd><%= r.price %></dd>
+        </dl>
+      </div>
+      <div class="col-md-6">
+        <% unless r.img_url.nil? %>
+            <img src=<%= r.img_url %>>
+        <% end %>
+      </div>
+    </div>
 <% end %>
 </body>
 </html>
